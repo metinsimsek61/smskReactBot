@@ -29,7 +29,7 @@ const botToken = ""; /*You'll have to set this yourself; read more
 
 For the bot to work properly, you must:
 
-- Fill in the yourID variable; you can get it in any discord channel by typing "\@YOUR_NAME". For me, it would be \@Night.
+- Fill in the yourID variable; you can get it in any discord channel by typing "\\@YOUR_NAME". For me, it would be \\@Night.
 
 - Adjust the setup command, if you do not like the default one
 
