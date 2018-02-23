@@ -1,12 +1,11 @@
 //Settings!
 const yourID = ""; //Instructions on how to get this: https://redd.it/40zgse
-const setupCMD = "!createroleressage"
+const setupCMD = "!createrolemessage"
 let initialMessage = `**React to the messages below to receive the associated role. If you would like to remove the role, simply remove your reaction!**`;
 const roles = ["Hacker", "Artist", "Public Relations", "Intern"];
 const reactions = ["💻", "🖌", "😃", "🆕"];
 const botToken = ""; /*You'll have to set this yourself; read more
                      here https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token*/
-
 
 //Load up the bot...
 const Discord = require('discord.js');
@@ -44,7 +43,7 @@ bot.on('raw', event => {
     if (event.t === 'MESSAGE_REACTION_ADD' || event.t == "MESSAGE_REACTION_REMOVE"){
         
         let channel = bot.channels.get(event.d.channel_id);
-        let message = channel.messages.fetch(event.d.message_id).then(msg=> {
+        let message = channel.fetchMessage(event.d.message_id).then(msg=> {
         let user = msg.guild.members.get(event.d.user_id);
         
         if (msg.author.id == bot.user.id && msg.content != initialMessage){
@@ -57,13 +56,13 @@ bot.on('raw', event => {
                 var memberObj = msg.guild.members.get(user.id);
                 
                 if (event.t === "MESSAGE_REACTION_ADD"){
-                    memberObj.roles.add(roleObj)
+                    memberObj.addRole(roleObj)
                 } else {
-                    memberObj.roles.remove(roleObj);
+                    memberObj.removeRole(roleObj);
                 }
             }
         }
-        });
+        })
  
     }   
 });
