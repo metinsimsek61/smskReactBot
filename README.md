@@ -14,6 +14,8 @@ A bot that automatically assigns roles based on message reactions.
 
 Clone this repository to your local machine.
 
+Install the latest version of the `discord` module. You may need to run `npm uninstall discord` and then `npm install discord --save`.
+
 Open `roleReact.js`, you will need to change most of the settings at the top of the file. The relevant lines look like this: 
 
 ```JavaScript
