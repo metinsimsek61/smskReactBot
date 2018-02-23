@@ -14,7 +14,7 @@ A bot that automatically assigns roles based on message reactions.
 
 Clone this repository to your local machine.
 
-Install the latest version of the `discord` module. You may need to run `npm uninstall discord` and then `npm install discord --save`.
+Install the latest version of the `discord` module. Uninstall any previous versions, and then run `npm i -S discordjs/discord.js`.
 
 Open `roleReact.js`, you will need to change most of the settings at the top of the file. The relevant lines look like this: 
 
@@ -31,7 +31,7 @@ const botToken = ""; /*You'll have to set this yourself; read more
 
 For the bot to work properly, you must:
 
-- Fill in the yourID variable; you can get it in any discord channel by typing "\@YOUR_NAME". For me, it would be \@Night.
+- Fill in the yourID variable; you can get it in any discord channel by typing "\\@YOUR_NAME". For me, it would be \\@Night.
 
 - Adjust the setup command, if you do not like the default one
 
@@ -41,7 +41,7 @@ For the bot to work properly, you must:
 
 - Replace the reactions with the ones of your choosing. **Note:** to get the value for the reaction, do NOT simply type `:my_reaction:` and copy the result. You must type `\:my_reaction` with the backslash and copy that result after pressening enter. If done correctly, the reaction should appear smaller than usual.
 
-- Set up the bot and get the token. This [Github Wiki Page](here https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token) does a better job of expaining it than I ever could. An image of the permissions the bot needs can be [found here](https://i.imgur.com/PFDm3pH.png).
+- Set up the bot and get the token. This [Github Wiki Page](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token) does a better job of expaining it than I ever could. An image of the permissions the bot needs can be [found here](https://i.imgur.com/PFDm3pH.png).
 
 ## Conclusion 
 
