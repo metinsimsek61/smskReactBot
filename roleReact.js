@@ -52,7 +52,7 @@ bot.on('raw', event => {
             var role = msg.content.match(re)[1];
         
             if (user.id != bot.user.id){
-                var roleObj = msg.guild.roles.find('name', role);
+                var roleObj = msg.guild.roles.find(r => r.name === role);
                 var memberObj = msg.guild.members.get(user.id);
                 
                 if (event.t === "MESSAGE_REACTION_ADD"){
