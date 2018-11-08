@@ -23,7 +23,7 @@ Open `roleReact.js` with a text editor and modify the following lines:
 ```JavaScript
 //Settings!
 const yourID = ""; //Instructions on how to get this: https://redd.it/40zgse
-const setupCMD = "!createroleressage"
+const setupCMD = "!createrolemessage"
 let initialMessage = `**React to the messages below to receive the associated role. If you would like to remove the role, simply remove your reaction!**`;
 const roles = ["Hacker", "Artist", "Public Relations", "Intern"];
 const reactions = ["💻", "🖌", "😃", "🆕"];
