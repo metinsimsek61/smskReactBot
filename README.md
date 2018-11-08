@@ -18,7 +18,7 @@ Uninstall any previous versions of discord.js module with `npm uninstall discord
 
 Install the latest version of discord.js module and then run `npm install discord.js --save`.
 
-Open `roleReact.js` with an editor and modify the following lines: 
+Open `roleReact.js` with a text editor and modify the following lines: 
 
 ```JavaScript
 //Settings!
@@ -31,13 +31,9 @@ const botToken = ""; /*You'll have to set this yourself; read more
                      here https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token*/
 ```
 
-For the bot to work properly, you must:
+Mandatory:
 
 - Fill in the yourID variable. You can get "yourID" in any discord channel by typing "\\@YOUR_NAME". For me, it would be \\@Night.
-
-- Modify the setup command, if you do not like the default one.
-
-- Modify the initial message, if you do not like the default one.
 
 - Change roles the to ones that are in your server.
 
@@ -46,6 +42,13 @@ For the bot to work properly, you must:
 For custom emojis, follow the previous step and copy the string of numbers only (i.e. ignore text and angled brackets). Paste the string of numbers into the reactions array as you would with regular emojis.
 
 - Set up the bot and get a token. The [Github Wiki Page](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token) explains how to set up bots and get tokens. An image of the permissions the bot needs can be [found here](https://i.imgur.com/PFDm3pH.png). **Make sure the bot has a role that allows it to modify other user's roles.**
+
+Optional:
+
+- Modify the setupCMD to display a custom setup message.
+
+- Modify initialMessage to display a custom initial message.
+
 
 ## Support
 
