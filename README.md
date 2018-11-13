@@ -14,14 +14,16 @@ A bot that automatically assigns roles based on message reactions.
 
 Clone this repository to your local machine.
 
-Install the latest version of the `discord.js` module. Uninstall any previous versions (`npm uninstall discord.js`), and then run `npm install discord.js --save`.
+Uninstall any previous versions of discord.js module with `npm uninstall discord.js`. 
 
-Open `roleReact.js`, you will need to change most of the settings at the top of the file. The relevant lines look like this: 
+Install the latest version of discord.js module and then run `npm install discord.js --save`.
+
+Open `roleReact.js` with a text editor and modify the following lines: 
 
 ```JavaScript
 //Settings!
 const yourID = ""; //Instructions on how to get this: https://redd.it/40zgse
-const setupCMD = "!createroleressage"
+const setupCMD = "!createrolemessage"
 let initialMessage = `**React to the messages below to receive the associated role. If you would like to remove the role, simply remove your reaction!**`;
 const roles = ["Hacker", "Artist", "Public Relations", "Intern"];
 const reactions = ["💻", "🖌", "😃", "🆕"];
@@ -29,20 +31,25 @@ const botToken = ""; /*You'll have to set this yourself; read more
                      here https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token*/
 ```
 
-For the bot to work properly, you must:
+Mandatory:
 
-- Fill in the yourID variable; you can get it in any discord channel by typing "\\@YOUR_NAME". For me, it would be \\@Night.
+- Fill in the yourID variable. You can get "yourID" in any discord channel by typing "\\@YOUR_NAME". For me, it would be \\@Night.
 
-- Adjust the setup command, if you do not like the default one
+- Change roles the to ones that are in your server.
 
-- Adjust the initial message, if you do not like the default one
+- Replace the reaction emojis with the ones of your choosing. 
+**Note:** to get the value for the reaction, type `\:my_reaction` with the backslash and press enter. If done correctly, a smaller emoji should appear. Copy the small emoji into the reactions array.
+For custom emojis, follow the previous step and copy the string of numbers only (i.e. ignore text and angled brackets). Paste the string of numbers into the reactions array as you would with regular emojis.
 
-- Adjust the roles to ones that are actually in your server; **make sure the bot's role is high enough on the list in your server's settings that it can assign the them properly**.
+- Set up the bot and get a token. The [Github Wiki Page](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token) explains how to set up bots and get tokens. An image of the permissions the bot needs can be [found here](https://i.imgur.com/PFDm3pH.png). **Make sure the bot has a role that allows it to modify other user's roles.**
 
-- Replace the reactions with the ones of your choosing. **Note:** to get the value for the reaction, do NOT simply type `:my_reaction:` and copy the result. You must type `\:my_reaction` with the backslash and copy that result after pressening enter. If done correctly, the reaction should appear smaller than usual. If It's a custom emoji, follow the previous step and copy the string of numbers that appears in the window (ignore the arrows and other text). Paste it into the list just like you would with one of the emojis.
+Optional:
 
-- Set up the bot and get the token. This [Github Wiki Page](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token) does a better job of expaining it than I ever could. An image of the permissions the bot needs can be [found here](https://i.imgur.com/PFDm3pH.png).
+- Modify the setupCMD to display a custom setup message.
 
-## Conclusion 
+- Modify initialMessage to display a custom initial message.
 
-I hope you find this bot useful. If you need any help, or find any bugs, use the appropriate forums in this repository to contact me.
+
+## Support
+
+I hope you find this bot useful. If you need help or find any bugs, use the appropriate forums in this repository to contact me.
