@@ -1,0 +1,22 @@
+{
+    "name": "discord-rolereact",
+    "version": "1.0.0",
+    "description": "A bot that automatically assigns roles based on message reactions.",
+    "main": "roleReact.js",
+    "scripts": {
+        "start": "node ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Sam-DevZ/Discord-RoleReact.git"
+    },
+    "author": "Sam-DevZ",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Sam-DevZ/Discord-RoleReact/issues"
+    },
+    "homepage": "https://github.com/Sam-DevZ/Discord-RoleReact#readme",
+    "dependencies": {
+        "discord.js": "^11.4.2"
+    }
+}
