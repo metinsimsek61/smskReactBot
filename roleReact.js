@@ -1,6 +1,6 @@
 // Configuration & Settings
 const yourID = "158063324699951104"; //Instructions on how to get this: https://redd.it/40zgse
-const setupCMD = "!createrolemessage"
+const setupCMD = "!createrolemessage";
 const initialMessage = `**React to the messages below to receive the associated role. If you would like to remove the role, simply remove your reaction!**`;
 const embedMessage = `
 React to the emoji that matches the role you wish to receive.
@@ -9,9 +9,11 @@ If you would like to remove the role, simply remove your reaction!
 `;
 const embedFooter = "Role Reactions"; // Must set this if "embed" is set to true
 const roles = ["Hacker", "Artist", "Public Relations", "Intern"];
-const reactions = ["💻", "🖌", "😃", "🆕"];
-const embed = true; // Set to "true" if you want all roles to be in a single embed
+const reactions = ["💻", "🖌", "😃", "🆕"]; // For custom emojis, provide the name of the emoji
+const embed = false; // Set to "true" if you want all roles to be in a single embed
 const embedColor = "#dd2423"; // Set the embed color if the "embed" variable is set to true
+const embedThumbnail = true; // Set to "true" if you want to set a thumbnail in the embed
+const embedThumbnailLink = "https://i.imgur.com/P8PD7DD.png"; // The link for the embed thumbnail
 const botToken = "";
 /**
  * You'll have to set this up yourself! Read more below:
@@ -19,8 +21,8 @@ const botToken = "";
  * https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token
  */
 
-// Import classes and load client
-const { Client, RichEmbed } = require('discord.js');
+// Import constructords and login the client
+const { Client, RichEmbed, Emoji, MessageReaction } = require('discord.js');
 const client = new Client({ disableEveryone: true });
 client.login(botToken);
 
@@ -30,7 +32,9 @@ if (roles.length !== reactions.length) throw "Roles list and reactions list are 
 // Function to generate the role messages, based on your settings
 function generateMessages() {
     let messages = [];
-    for (let role of roles) messages.push(`React below to get the **"${role}"** role!`); //DONT CHANGE THIS
+    for (let role of roles) {
+        messages.push({ role, message: `React below to get the **"${role}"** role!` }); //DONT CHANGE THIS
+    }
     return messages;
 }
 
@@ -44,6 +48,12 @@ function generateEmbedFields() {
     });
 }
 
+function checkRole(guild, role) {
+    const role = guild.roles.find(r => r.name === role);
+    if (role) return true;
+    else return false;
+}
+
 // Client events to let you know if the bot is online and to handle any Discord.js errors
 client.on("ready", () => console.log("Bot is online!"));
 client.on('error', console.error);
@@ -53,26 +63,54 @@ client.on("message", message => {
     if (message.author.id == yourID && message.content.toLowerCase() == setupCMD) {
 
         if (!embed) {
+            if (!initialMessage) throw "The 'initialMessage' property is not set. Please do this!";
+
             message.channel.send(initialMessage);
 
             const toSend = generateMessages();
             toSend.forEach((role, react) => {
-                message.channel.send(role).then(m => {
-                    m.react(reactions[react]);
+                if (!checkRole(message.guild, role)) throw `The role '${role}' does not exist!`;
+
+                message.channel.send(role).then(async m => {
+                    const emoji = reactions[react];
+                    const customEmote = client.emojis.find(e => e.name === emoji);
+                    
+                    if (!customEmote) await m.react(emoji);
+                    else await m.react(customEmote.id);
                 });
             });
         } else {
+            if (!embedMessage) throw "The 'embedMessage' property is not set. Please do this!";
+            if (!embedFooter) throw "The 'embedFooter' property is not set. Please do this!";
+
             const roleEmbed = new RichEmbed()
                 .setDescription(embedMessage)
                 .setFooter(embedFooter);
 
             if (embedColor) roleEmbed.setColor(embedColor);
+            if (embedThumbnail) roleEmbed.setThumbnail(embedThumbnailLink);
 
             const fields = generateEmbedFields();
-            for (const f of fields) roleEmbed.addField(f.emoji, f.role, true);
+            if (fields.length >= 25) throw "That maximum roles that can be set for an embed is 25!";
+
+            for (const f of fields) {
+                if (!checkRole(message.guild, f.role)) throw `The role '${role}' does not exist!`;
+
+                const emoji = f.emoji;
+                const customEmote = client.emojis.find(e => e.name === emoji);
+                
+                if (!customEmote) roleEmbed.addField(emoji, f.role, true);
+                else roleEmbed.addField(customEmote, f.role, true);
+            }
 
             message.channel.send(roleEmbed).then(async m => {
-                for (let r of reactions) await m.react(r);
+                for (const r of reactions) {
+                    const emoji = r;
+                    const customEmote = client.emojis.find(e => e.name === emoji);
+                    
+                    if (!customEmote) await m.react(emoji);
+                    else await m.react(customEmote.id);
+                }
             });
         }
     }
@@ -97,7 +135,13 @@ client.on('raw', async event => {
     const member = message.guild.members.get(user.id);
 
     const emojiKey = (data.emoji.id) ? `${data.emoji.name}:${data.emoji.id}` : data.emoji.name;
-    const reaction = message.reactions.get(emojiKey);
+    let reaction = message.reactions.get(emojiKey);
+
+    if (!reaction) {
+        // Create an object that can be passed through the event like normal
+        const emoji = new Emoji(client.guilds.get(data.guild_id), data.emoji);
+        reaction = new MessageReaction(message, emoji, 1, data.user_id === client.user.id);
+    }
 
     let embedFooterText;
     if (message.embeds[0]) embedFooterText = message.embeds[0].footer.text;
@@ -124,7 +168,7 @@ client.on('raw', async event => {
                 if (member.id !== client.user.id) {
                     const role = message.guild.roles.find(r => r.name === fields[i].value);
 
-                    if (fields[i].name === reaction.emoji.name) {
+                    if ((fields[i].name === reaction.emoji.name) || (fields[i].name === reaction.emoji.toString())) {
                         if (event.t === "MESSAGE_REACTION_ADD") {
                             member.addRole(role.id);
                             break;
@@ -138,3 +182,9 @@ client.on('raw', async event => {
         }
     }
 });
+
+process.on('unhandledRejection', err => {
+    let msg = err.stack.replace(new RegExp(`${__dirname}/`, 'g'), './');
+	console.error(`Unhandled Rejection: \n ${msg}`);
+});
+
