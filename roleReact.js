@@ -32,9 +32,7 @@ if (roles.length !== reactions.length) throw "Roles list and reactions list are 
 // Function to generate the role messages, based on your settings
 function generateMessages() {
     let messages = [];
-    for (let role of roles) {
-        messages.push({ role, message: `React below to get the **"${role}"** role!` }); //DONT CHANGE THIS
-    }
+    for (const role of roles) messages.push({ role, message: `React below to get the **"${role}"** role!` }); //DONT CHANGE THIS
     return messages;
 }
 
@@ -49,8 +47,8 @@ function generateEmbedFields() {
 }
 
 function checkRole(guild, role) {
-    const role = guild.roles.find(r => r.name === role);
-    if (role) return true;
+    const checkRole = guild.roles.find(r => r.name === role);
+    if (checkRole) return true;
     else return false;
 }
 
@@ -67,11 +65,11 @@ client.on("message", message => {
 
             message.channel.send(initialMessage);
 
-            const toSend = generateMessages();
-            toSend.forEach((role, react) => {
-                if (!checkRole(message.guild, role)) throw `The role '${role}' does not exist!`;
+            const messages = generateMessages();
+            messages.forEach((obj, react) => {
+                if (!checkRole(message.guild, obj.role)) throw `The role '${obj.role}' does not exist!`;
 
-                message.channel.send(role).then(async m => {
+                message.channel.send(obj.message).then(async m => {
                     const emoji = reactions[react];
                     const customEmote = client.emojis.find(e => e.name === emoji);
                     
@@ -187,4 +185,3 @@ process.on('unhandledRejection', err => {
     let msg = err.stack.replace(new RegExp(`${__dirname}/`, 'g'), './');
 	console.error(`Unhandled Rejection: \n ${msg}`);
 });
-
