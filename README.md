@@ -8,7 +8,7 @@ A bot that automatically assigns roles based on message reactions.
 
 ## Features
 
-- Customizable messages, reactions, commands, and roles
+- Customizable messages, reactions, command, and roles
 
 - Auto-removes role when user removes a reaction
 
@@ -22,58 +22,40 @@ Clone this repository to your local machine.
 
 Run the `npm install` command to install discord.js
 
-Open `roleReact.js` with a text editor and modify the following lines: 
+Open `config.js` with a text editor and modify the different properties to your liking. Most options are fairly straightforward, however, there is commenting where appropriate.
 
-```JavaScript
-const yourID = "158063324699951104"; //Instructions on how to get this: https://redd.it/40zgse
-const setupCMD = "!createrolemessage";
-const initialMessage = `**React to the messages below to receive the associated role. If you would like to remove the role, simply remove your reaction!**`;
-const embedMessage = `
-React to the emoji that matches the role you wish to receive.
 
-If you would like to remove the role, simply remove your reaction!
-`;
-const embedFooter = "Role Reactions"; // Must set this if "embed" is set to true
-const roles = ["Hacker", "Artist", "Public Relations", "Intern"];
-const reactions = ["💻", "🖌", "😃", "🆕"]; // For custom emojis, provide the name of the emoji
-const embed = false; // Set to "true" if you want all roles to be in a single embed
-const embedColor = "#dd2423"; // Set the embed color if the "embed" variable is set to true
-const embedThumbnail = true; // Set to "true" if you want to set a thumbnail in the embed
-const embedThumbnailLink = "https://i.imgur.com/P8PD7DD.png"; // The link for the embed thumbnail
-const botToken = "";
-/**
- * You'll have to set this up yourself! Read more below:
- * 
- * https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token
- */
-```
-
+## Configuration
 Mandatory:
 
-- Fill in the `yourID` variable. You can get `yourID` in any Discord channel by typing `\@YOUR NAME`. For me, it would be `\@Night`.
+- Fill in the `yourID` property with your User iD. You can get your User iD in any Discord channel by typing `\@YOUR NAME` or enabling "Developer Mode" in the Appearance section of your Discord settings. For example, you would do `\@anthony` to get [acollierr17](https://github.com/acollierr17)'s Discord User ID.
 
 - Change roles the to ones that are in your server.
 
 - Replace the reaction emojis with the ones of your choosing. 
-**Note:** to get the value for the reaction, type `\:my_reaction` with the backslash and press enter. If done correctly, a smaller emoji should appear. Copy the small emoji into the reactions array.
+**Note:** to get the value for the reaction, type `\:my_reaction:` with the backslash and press enter. If done correctly, a smaller emoji should appear. Copy the small emoji into the reactions array.
  For custom emojis, simply provide the name of the custom emoji that you wish to use.
 
-- Set `embed` to true or false if you wish to use a single embed for all reaction roles. After that, set the text for the embed footer via the `embedFooter` variable
+- Set the `embed` property to true or false if you wish to use a single embed for all reaction roles. After that, set the text for the embed footer via the `embedFooter` property
 
-- Set up the bot and get a token. The [Github Wiki Page](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token) explains how to set up bots and get tokens. An image of the permissions the bot needs can be [found here](https://i.imgur.com/PFDm3pH.png). **Make sure the bot has a role/the permissions that allows it to modify other user's roles.**
+- Set up the bot and get a token. The [Github Wiki Page](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token) explains how to set up bots and get tokens. An image of the permissions the bot needs can be [found here](https://i.imgur.com/PFDm3pH.png). **Make sure the bot has a role with the permissions that allows it to modify another user's roles.**
 
 Optional:
 
-- Modify the `setupCMD` variable to display a custom setup message
+- Modify the `setupCMD` property to display a custom setup message
 
-- Modify `initialMessage` variable to display a custom initial message
+- Modify `initialMessage` property to display a custom initial message
 
-- Modify the `embedMessage` variable to display a custom message for the embed
+- Modify the `embedMessage` property to display a custom message for the embed
 
-- Modify the `embedColor` variable to display a custom embed color
+- Modify the `embedColor` property to display a custom embed color
+
+- Modify the `setupCMD` property to a custom command to be used
+
+- Modify the `deleteSetupCMD` property to delete the `setupCMD` message when it's ran
 
 **After you have installed discord.js and made the modifications above, run the `npm start` command to start the bot!**
 
 ## Support
 
-I hope you find this bot useful. If you need help or find any bugs, use the appropriate forums in this repository to contact me.
+We hope you find this bot useful. If you need help or find any bugs, use the appropriate forums in this repository to contact us.
