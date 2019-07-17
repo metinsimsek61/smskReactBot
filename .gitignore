@@ -63,3 +63,4 @@ typings/
 # Other
 data/
 package-lock.json
+config.js

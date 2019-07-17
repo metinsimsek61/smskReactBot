@@ -10,7 +10,7 @@ module.exports = {
 	/**
 	 * Delete the 'setupCMD' command after it is ran. Set to 'true' for the command message to be deleted
 	 */
-	deleteSetupCMD: true,
+	deleteSetupCMD: false,
 
 	initialMessage: `**React to the messages below to receive the associated role. If you would like to remove the role, simply remove your reaction!**`,
 	

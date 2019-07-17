@@ -1,4 +1,4 @@
-const CONFIG = require('./config');
+const CONFIG = require('./config.example');
 
 if (CONFIG.botToken !== '') 
 	throw new Error("Please remove the Discord bot token from 'botToken' in the config.js file.");

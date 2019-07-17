@@ -39,17 +39,29 @@ client.on('error', console.error);
 
 // Handles the creation of the role reactions. Will either send the role messages separately or in an embed
 client.on("message", message => {
-    if (
-        (message.author.id !== CONFIG.yourID) && (message.content.toLowerCase() !== CONFIG.setupCMD)
-    ) return;
+    // Make sure bots can't run this command
+    if (message.author.bot) return;
+
+    // Make sure the command can only be ran in a server
+    if (!message.guild) return;
+
+    // We don't want the bot to do anything further if it can't send messages in the channel
+    if (message.guild && !message.channel.permissionsFor(message.guild.me).missing('SEND_MESSAGES')) return;
+
+    if ((message.author.id !== CONFIG.yourID) && (message.content.toLowerCase() !== CONFIG.setupCMD)) return;
+
     if (CONFIG.deleteSetupCMD) {
         const missing = message.channel.permissionsFor(message.guild.me).missing('MANAGE_MESSAGES');
-        if (missing.length > 1) console.log(missing);
         // Here we check if the bot can actually delete messages in the channel the command is being ran in
         if (missing.includes('MANAGE_MESSAGES'))
             throw new Error("I need permission to delete your command message! Please assign the 'Manage Messages' permission to me in this channel!");
         message.delete().catch(O_o=>{});
     }
+
+    const missing = message.channel.permissionsFor(message.guild.me).missing('MANAGE_MESSAGES');
+    // Here we check if the bot can actually add recations in the channel the command is being ran in
+    if (missing.includes('ADD_REACTIONS'))
+        throw new Error("I need permission to add reactions to these messages! Please assign the 'Add Reactions' permission to me in this channel!");
 
     if (!CONFIG.embed) {
         if (!CONFIG.initialMessage || (CONFIG.initialMessage === '')) 
@@ -159,7 +171,7 @@ client.on('raw', async event => {
             for (const { name, value } of fields) {
                 if (member.id !== client.user.id) {
                     const guildRole = message.guild.roles.find(r => r.name === value);
-                    if ((name === reaction.emoji.name) && (name === reaction.emoji.toString())) {
+                    if ((name === reaction.emoji.name) || (name === reaction.emoji.toString())) {
                         if (event.t === "MESSAGE_REACTION_ADD") member.addRole(guildRole.id);
                         else if (event.t === "MESSAGE_REACTION_REMOVE") member.removeRole(guildRole.id);
                     }
