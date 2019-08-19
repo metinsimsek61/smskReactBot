@@ -48,7 +48,7 @@ client.on("message", message => {
     // We don't want the bot to do anything further if it can't send messages in the channel
     if (message.guild && !message.channel.permissionsFor(message.guild.me).missing('SEND_MESSAGES')) return;
 
-    if ((message.author.id !== CONFIG.yourID) && (message.content.toLowerCase() !== CONFIG.setupCMD)) return;
+    if ((message.author.id !== CONFIG.yourID) || (message.content.toLowerCase() !== CONFIG.setupCMD)) return;
 
     if (CONFIG.deleteSetupCMD) {
         const missing = message.channel.permissionsFor(message.guild.me).missing('MANAGE_MESSAGES');
