@@ -1,9 +1,3 @@
-<div align="center">
-<img src="https://i.imgur.com/Ahzhyuj.png" align="center" alt="Logo">
-<br>
-<strong><i>A bot that automatically assigns roles based on message reactions.</i></strong>
-<br>
-<br>
 <hr>
 
 <a href="https://travis-ci.com/Sam-DevZ/Discord-RoleReact">
